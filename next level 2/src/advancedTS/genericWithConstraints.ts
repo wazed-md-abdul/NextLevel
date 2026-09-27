@@ -14,10 +14,7 @@
 //     id: 123,
 //     name: "wazed",
 //     courseName: "Next Level",
-//     batch: 7,
+//     batch: 9,
 //     major: "Software Engineering "
 // }
 // console.log(addStudentDetails(stdInfo))
-
-
-

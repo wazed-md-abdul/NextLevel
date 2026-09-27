@@ -6,4 +6,4 @@ type Bike = {
 }
 
 type BikeCheck<T> = T extends keyof Bike ? true : false;
-type HasBike  = BikeCheck<"name" | "price" | "model" | "color">;
+type HasBike  = BikeCheck<"name" | "priced" | "color">;
