@@ -6,5 +6,8 @@ export const productsController = (req: IncomingMessage, res: ServerResponse) =>
   res.writeHead(200, { "Content-Type": "application/json" });
   const products = readProducts();
   console.log(products);
-  res.end(JSON.stringify(products));
+  res.end(JSON.stringify({
+    message: "Products fetched successfully",
+    products
+  }));
 };
