@@ -2,10 +2,11 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { readProducts } from "../services/products.service";
 import type { Product } from "../types/products.type.ts";
+import { parseBody } from "../utility/parseBody";
 
 
 
-export const productsController = (req: IncomingMessage, res: ServerResponse) => {
+export const productsController = async (req: IncomingMessage, res: ServerResponse) => {
   const url = req.url;
   const method = req.method;
   const splitContent = url?.split("/");
@@ -13,13 +14,17 @@ export const productsController = (req: IncomingMessage, res: ServerResponse) =>
   const products = readProducts();
   const product = products.find((p :Product) => p.id === id);
 
-  console.log("this is the id ", id)
+  if (id && method === "GET") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(product));
+  } else if (method === "GET") {
+      res.writeHead(200, { "Content-Type": "application/json" });
+    res.end(JSON.stringify(products));
+  } else if (method === "POST") {
+    const body = await parseBody(req);
+    console.log(body);
+    res.writeHead(201, { "Content-Type": "application/json" });
+    res.end(body);
+  }
 
-
-  res.writeHead(200, { "Content-Type": "application/json" });
-
-  res.end(JSON.stringify({
-    message: "Products fetched successfully",
-
-  }));
 };
