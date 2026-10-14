@@ -24,7 +24,7 @@ export const productsController = async (req: IncomingMessage, res: ServerRespon
     const body = await parseBody(req);
     console.log(body);
     res.writeHead(201, { "Content-Type": "application/json" });
-    res.end(body);
+    res.end(JSON.stringify(body));
   }
 
 };
