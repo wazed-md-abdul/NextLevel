@@ -29,10 +29,17 @@ initDb()
 const app = express()
 app.use(express.json())
 const port = 3000
-app.get("/", (req: Request, res: Response) => {
-    res.status(200).json({ message: "Hello World!" })
+app.get("/api/user", async (req: Request, res: Response) => {
+    try {
+            const result = await db.query(`
+                SELECT * FROM users
+            `)
+            res.status(200).json(result.rows)
+    } catch (error) {
+        res.status(500).json({ error: error })
+    }
 })
-app.post ("/", async (req: Request, res: Response) => {
+app.post ("/api/user", async (req: Request, res: Response) => {
   console.log(req.body)
   try {
     const result = await db.query(`
