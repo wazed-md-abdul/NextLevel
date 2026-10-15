@@ -67,6 +67,18 @@ app.post ("/api/user", async (req: Request, res: Response) => {
     res.status(500).json({ error: error })
   }
 })
+app.put("/api/user/:id", async (req: Request, res: Response) => {
+  try {
+    const result = await db.query(`
+      UPDATE users SET name = $1, email = $2, age = $3 WHERE id = $4
+      RETURNING id, name, email, age
+    `, [req.body.name, req.body.email, req.body.age, req.params.id])
+    if(result.rows.length === 0) return res.status(404).json({ error: "User not found" })
+    res.status(200).json(result.rows[0])
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
+})
 app.listen(port, () => {
     console.log("Server is running on port 3000")
 })
