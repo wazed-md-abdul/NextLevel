@@ -1,9 +1,10 @@
 import express from "express"
 import type { Request, Response } from "express"
 import { Pool } from "pg"
+import { config } from "./config/index"
 
 const db = new Pool({
-  connectionString : "postgresql://neondb_owner:npg_OHBaPGAQN90i@ep-gentle-bread-b345h2qr-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+  connectionString : config.connectionString
 })
 
 const initDb = async () => {
@@ -69,10 +70,23 @@ app.post ("/api/user", async (req: Request, res: Response) => {
 })
 app.put("/api/user/:id", async (req: Request, res: Response) => {
   try {
+    const { name: newName, email: newEmail, age: newAge } = req.body
     const result = await db.query(`
-      UPDATE users SET name = $1, email = $2, age = $3 WHERE id = $4
+      UPDATE users SET name = COALESCE($1, name), email = COALESCE($2, email), age = COALESCE($3, age) WHERE id = $4
       RETURNING id, name, email, age
-    `, [req.body.name, req.body.email, req.body.age, req.params.id])
+    `, [newName, newEmail, newAge, req.params.id])
+    if(result.rows.length === 0) return res.status(404).json({ error: "User not found" })
+    res.status(200).json(result.rows[0])
+  } catch (error) {
+    res.status(500).json({ error: error })
+  }
+})
+app.delete("/api/user/:id", async (req: Request, res: Response) => {
+  try {
+    const result = await db.query(`
+      DELETE FROM users WHERE id = $1
+      RETURNING id, name, email, age
+    `, [req.params.id])
     if(result.rows.length === 0) return res.status(404).json({ error: "User not found" })
     res.status(200).json(result.rows[0])
   } catch (error) {
