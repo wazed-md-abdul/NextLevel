@@ -1,19 +1,19 @@
 import express from "express"
 import type { Request, Response } from "express"
-import { db } from "./db"
+import { db } from "./db/index"
+import userRouter from "./modules/user/user.route"
 const app = express()
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 const port = 3000
-app.get("/api/user", async (req: Request, res: Response) => {
-    try {
-            const result = await db.query(`
-                SELECT * FROM users
-            `)
-            res.status(200).json(result.rows)
-    } catch (error) {
-        res.status(500).json({ error: error })
-    }
-})
+app.get("/", (res: Response) => {
+  res.status(200).json({
+    message: "Express Server",
+    author: "Next Level",
+  });
+});
+
+app.use("/api/user", userRouter)
 app.get("/api/user/:id", async (req: Request, res: Response) => {
   try{
     const result = await db.query(

@@ -1,6 +1,6 @@
-import { config } from "./config"
-import { initDb } from "./db"
-import app from "./main"
+import { config } from "./config/index"
+import { initDb } from "./db/index"
+import app from "./app"
 
 const main = async () => {
   await initDb()
