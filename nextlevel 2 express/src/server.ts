@@ -8,3 +8,4 @@ const main = async () => {
     console.log(`Server is running on port ${config.port}`)
   })
 }
+main()
