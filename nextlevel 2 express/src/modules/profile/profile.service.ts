@@ -1,5 +1,5 @@
 import { db } from "../../db/index";
-import type { CreateProfile, UpdateProfile } from "./profile.interface";
+import type { CreateProfile, UpdateProfile } from "./profile.type";
 
 class ProfileService {
   static async createProfile(data: CreateProfile) {

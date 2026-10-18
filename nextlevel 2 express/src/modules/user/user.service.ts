@@ -1,13 +1,15 @@
 import { db } from "../../db/index";
 import type { CreateUser, UpdateUser } from "./user.interface";
-
+import bcrypt from "bcryptjs"
 class UserService {
+
   static async createUser(data: CreateUser) {
+    const hashedPassword = await bcrypt.hash(data.password, 10);
     const result = await db.query(`
       INSERT INTO users (name, email, password, age)
       VALUES ($1, $2, $3, $4)
       RETURNING id, name, email, age
-    `, [data.name, data.email, data.password, data.age])
+    `, [data.name, data.email, hashedPassword, data.age])
     return result.rows[0]
   }
   static async getUserById(id: number) {
