@@ -1,0 +1,28 @@
+
+Method -> POST - Time -> 1792437252688 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1792437260939 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1792437261868 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1792439444442 - URL -> /api/user
+
+Method -> GET - Time -> 1792439453151 - URL -> /api/user
+
+Method -> GET - Time -> 1792439565657 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1792439571006 - URL -> /api/auth/login
+
+Method -> POST - Time -> 1792439708093 - URL -> /api/user
+
+Method -> POST - Time -> 1792439852048 - URL -> /api/user
+
+Method -> POST - Time -> 1792439886924 - URL -> /api/auth/login
+
+Method -> GET - Time -> 1792439909096 - URL -> /api/user
+
+Method -> GET - Time -> 1792439915741 - URL -> /api/user
+
+Method -> GET - Time -> 1792440026842 - URL -> /api/user
+
+Method -> GET - Time -> 1792440030468 - URL -> /api/user
