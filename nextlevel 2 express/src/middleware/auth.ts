@@ -8,11 +8,13 @@ const auth =  () => {
             return res.status(401).json({ message: "Unauthorized" })
         }
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayload
-      req.body.user = decodedToken
         const userData = await db.query(`
             SELECT * FROM users WHERE id = $1
         `, [decodedToken.id])
-        console.log(decodedToken)
+        req.user = userData.rows[0]
+        if (userData.rows.length === 0) {
+            return res.status(404).json({ message: "User not found" })
+        }
         next()
     }
 }

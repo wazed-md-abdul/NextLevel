@@ -14,6 +14,7 @@ class userController {
 
   static putUser = async (req: Request, res: Response) => {
     try {
+
       const result = await UserService.updateUser(Number(req.params.id), req.body)
       if(result === null) return res.status(404).json({ error: "User not found" })
       res.status(200).json(result.rows[0])
@@ -34,6 +35,8 @@ class userController {
 
   static getUsers = async (req: Request, res: Response) => {
     try {
+      const user = req.user
+      console.log(user)
       const result = await UserService.getAllUsers()
       res.status(200).json(result)
     } catch (error) {
@@ -42,7 +45,8 @@ class userController {
   }
 
   static getUser = async (req: Request, res: Response) => {
-    try{
+    try {
+
       const result = await UserService.getUserById(Number(req.params.id))
       if(result === null) return res.status(404).json({ error: "User not found" })
       res.status(200).json(result.rows[0])
