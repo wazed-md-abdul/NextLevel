@@ -17,6 +17,9 @@ class AuthService {
     }
     const jwtPayload = {
       id: userData.rows[0].id,
+      name: userData.rows[0].name,
+      role: userData.rows[0].role,
+      isActive: userData.rows[0].is_active,
       email: userData.rows[0].email,
     }
     const token = jwt.sign(jwtPayload, process.env.jwt_secret as string, {

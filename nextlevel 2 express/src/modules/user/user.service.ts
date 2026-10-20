@@ -6,10 +6,10 @@ class UserService {
   static async createUser(data: CreateUser) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const result = await db.query(`
-      INSERT INTO users (name, email, password, age)
-      VALUES ($1, $2, $3, $4)
-      RETURNING id, name, email, age
-    `, [data.name, data.email, hashedPassword, data.age])
+      INSERT INTO users (name, email, password, age , role)
+      VALUES ($1, $2, $3, $4 , COALESCE($5, 'user'))
+      RETURNING id, name, email, age, role
+    `, [data.name, data.email, hashedPassword, data.age, data.role])
     return result.rows[0]
   }
   static async getUserById(id: number) {
