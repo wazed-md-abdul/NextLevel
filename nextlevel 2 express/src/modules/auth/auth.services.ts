@@ -25,7 +25,10 @@ class AuthService {
     const token = jwt.sign(jwtPayload, process.env.jwt_secret as string, {
       expiresIn: "1d"
     })
-    return { token }
+    const refreshToken = jwt.sign(jwtPayload, process.env.refresh_token_secret as string, {
+      expiresIn: "1d"
+    })
+    return { token, refreshToken }
   }
 
 }

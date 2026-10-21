@@ -6,4 +6,5 @@ export const config = {
   port: process.env.PORT || 3000,
   connectionString: process.env.DATABASE_URL,
   jwtSecret: process.env.JWT_SECRET,
+  refresh_token_secret: process.env.REFRESH_TOKEN_SECRET,
 }

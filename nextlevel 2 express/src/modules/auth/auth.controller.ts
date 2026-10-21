@@ -6,6 +6,12 @@ class AuthController {
     const payload = req.body
     try {
       const result = await AuthService.loginUserIntoDB(payload)
+      res.cookie("refreshToken", result.refreshToken, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax",
+      })
+
       res.status(200).json({
         message: "User logged in successfully",
         success: true,
