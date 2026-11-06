@@ -1,10 +1,11 @@
 {
-    "compilerOptions": {
-        "target": "esnext",
-        "module": "esnext",
-        "outDir": "./js",
-        "rootDir": "./ts",
-        "noEmitOnError": true,
-        "isolatedModules": true
-    }
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "esnext",
+    "target": "esnext",
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleDetection": "force"
+  }
 }

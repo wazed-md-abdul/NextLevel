@@ -1,4 +1,3 @@
-"use strict";
 var User;
 (function (User) {
     User["Admin"] = "admin";
@@ -7,3 +6,4 @@ var User;
 })(User || (User = {}));
 const user = User.Admin;
 console.log(user);
+export {};

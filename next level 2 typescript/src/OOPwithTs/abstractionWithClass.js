@@ -1,0 +1,3 @@
+class MediaPLayer {
+}
+export {};
