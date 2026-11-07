@@ -2,6 +2,7 @@ abstract class UIElement {
   constructor(protected id: string) { }
     abstract render(): string;
 }
+
 class Input extends UIElement {
   constructor(id: string, private type: string, private placeholder: string) {
     super(id);
@@ -20,10 +21,22 @@ class Button extends UIElement {
   }
 
   render() {
-    return `<button id="${this.id}">${this.label}</button>`;
+    return `<button class="px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:scale-95 transition cursor-pointer font-medium" id="${this.id}">${this.label}</button>`;
   }
 }
 
+class Button2 extends UIElement {
+  constructor(
+    id: string,
+    private label: string,
+  ) {
+    super(id);
+  }
+
+  render() {
+    return `<button class="px-5 py-2.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 active:scale-95 transition cursor-pointer font-medium" id="${this.id}">${this.label}</button>`;
+  }
+}
 
 class Form extends UIElement {
   private children: UIElement[] = [];
@@ -35,12 +48,27 @@ class Form extends UIElement {
   render() {
     const childrenHTML = this.children
       .map((child) => child.render())
-      .join("\n ");
+      .join("\n");
 
-    return `<form id="${this.id}" style="border: 1px solid #ccc; padding: 20px; display: flex; flex-direction: column; max-width:300px; border-radius:10px; gap:5px;">\n ${childrenHTML} \n</form>`;
+    return `
+      <form
+        id="${this.id}"
+        class="w-full max-w-sm mx-auto p-8 bg-white border border-gray-200 rounded-2xl shadow-lg flex flex-col gap-5"
+      >
+        ${childrenHTML}
+      </form>
+    `;
   }
 }
 const formElement = new Form("login-form");
+const formId = document.getElementById('form-container');
+if (formId) {
+  formId.innerHTML = formElement.render();
+}
+console.log(formElement.render())
+const button2 = new Button2("submit-btn", "Submit");
+formElement.appendChild(button2);
+
 const nameInput = new Input("name", "text", "Enter your name");
 const emailInput = new Input("email", "email", "Enter your email");
 const passwordInput = new Input("pass", "password", "Enter your password");
@@ -51,10 +79,10 @@ formElement.appendChild(nameInput);
 formElement.appendChild(emailInput);
 formElement.appendChild(passwordInput);
 formElement.appendChild(submitButton);
-console.log(formElement.render())
 
 
-const getId = document.getElementById('root');
-if (getId) {
-  getId.innerHTML = formElement.render();
+
+const getIdWithForm = document.getElementById('root');
+if (getIdWithForm) {
+  getIdWithForm.innerHTML = formElement.render();
 }
