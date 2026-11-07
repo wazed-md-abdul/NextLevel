@@ -46,9 +46,7 @@ class Form extends UIElement {
   }
 
   render() {
-    const childrenHTML = this.children
-      .map((child) => child.render())
-      .join("\n");
+    const childrenHTML: string = this.children.map((child) => child.render()).join("\n");
 
     return `
       <form
@@ -61,28 +59,37 @@ class Form extends UIElement {
   }
 }
 const formElement = new Form("login-form");
-const formId = document.getElementById('form-container');
-if (formId) {
-  formId.innerHTML = formElement.render();
-}
-console.log(formElement.render())
-const button2 = new Button2("submit-btn", "Submit");
-formElement.appendChild(button2);
 
 const nameInput = new Input("name", "text", "Enter your name");
 const emailInput = new Input("email", "email", "Enter your email");
 const passwordInput = new Input("pass", "password", "Enter your password");
 const submitButton = new Button("submit-btn", "Submit");
 
-
-formElement.appendChild(nameInput);
-formElement.appendChild(emailInput);
-formElement.appendChild(passwordInput);
-formElement.appendChild(submitButton);
-
-
-
 const getIdWithForm = document.getElementById('root');
-if (getIdWithForm) {
-  getIdWithForm.innerHTML = formElement.render();
-}
+setTimeout(() => {
+  formElement.appendChild(nameInput);
+  if (getIdWithForm) {
+    getIdWithForm.innerHTML = formElement.render();
+  }
+}, 2000);
+
+setTimeout(() => {
+  formElement.appendChild(emailInput);
+  if (getIdWithForm) {
+    getIdWithForm.innerHTML = formElement.render();
+  }
+}, 4000);
+
+setTimeout(() => {
+  formElement.appendChild(passwordInput);
+  if (getIdWithForm) {
+    getIdWithForm.innerHTML = formElement.render();
+  }
+}, 6000);
+
+setTimeout(() => {
+  formElement.appendChild(submitButton);
+  if (getIdWithForm) {
+    getIdWithForm.innerHTML = formElement.render();
+  }
+}, 8000);
